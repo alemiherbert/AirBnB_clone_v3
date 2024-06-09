@@ -1,5 +1,11 @@
 #!/usr/bin/python3
 
+"""
+This module is the main Flask application for the AirBnB clone API.
+It initializes the Flask app, registers the blueprint for the API views,
+and defines a teardown function to close the database connection.
+"""
+
 from flask import Flask
 from os import getenv
 from models import storage
@@ -12,7 +18,9 @@ app.register_blueprint(app_views)
 
 @app.teardown_appcontext
 def teardown_context(error):
-    """ Teardown context """
+    """
+    Teardown function to close the database connection after each request.
+    """
     storage.close()
 
 
