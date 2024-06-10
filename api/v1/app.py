@@ -6,7 +6,7 @@ It initializes the Flask app, registers the blueprint for the API views,
 and defines a teardown function to close the database connection.
 """
 
-from flask import Flask
+from flask import Flask, jsonify
 from os import getenv
 from models import storage
 from api.v1.views import app_views
@@ -22,6 +22,13 @@ def teardown_context(error):
     Teardown function to close the database connection after each request.
     """
     storage.close()
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    """ handles 404 errors """
+    status = {"error": "Not found"}
+    return jsonify(status), 404
 
 
 if __name__ == "__main__":
