@@ -9,11 +9,6 @@ from flask import jsonify
 from models import storage
 
 
-classes = {"users": "User", "places": "Place", "states": "State",
-           "cities": "City", "amenities": "Amenity",
-           "reviews": "Review"}
-
-
 @app_views.route("/status", methods=["GET"], strict_slashes=False)
 def status():
     """
@@ -33,6 +28,8 @@ def stats():
     Returns:
         A dictionary containing the count of all objects in the database.
     """
+    classes = {"users": "User", "places": "Place", "states": "State",
+               "cities": "City", "amenities": "Amenity", "reviews": "Review"}
     count_dict = {}
     for cls in classes:
         count_dict[cls] = storage.count(classes[cls])
