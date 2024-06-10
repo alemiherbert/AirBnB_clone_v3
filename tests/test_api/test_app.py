@@ -16,8 +16,8 @@ class TestApp(unittest.TestCase):
 
     def test_app_instance(self):
         with app.test_client() as c:
-            """Test wjether the app instance is created"""
-            self.assertInstance(c, testing.FlaskClient)
+            """Test whether the app instance is created"""
+            self.assertIsInstance(c, testing.FlaskClient)
 
 
 if __name__ == "__main__":
