@@ -1,36 +1,31 @@
 #!/usr/bin/python3
-
 """
-This module contains the routes for the index of the API.
+App views for AirBnB_clone_v3
 """
 
-from api.v1.views import app_views
 from flask import jsonify
 from models import storage
+from api.v1.views import app_views
 
 
-@app_views.route("/status", methods=["GET"], strict_slashes=False)
+@app_views.route('/status')
 def status():
-    """
-    Returns the status of the API.
-
-    Returns:
-        A dictionary containing the status of the API.
-    """
-    return jsonify({"status": "OK"})
+    """ returns status """
+    status = {"status": "OK"}
+    return jsonify(status)
 
 
-@app_views.route("/stats", methods=["GET"], strict_slashes=False)
-def stats():
-    """
-    Returns the count of all objects in the database.
-
-    Returns:
-        A dictionary containing the count of all objects in the database.
-    """
-    classes = {"users": "User", "places": "Place", "states": "State",
-               "cities": "City", "amenities": "Amenity", "reviews": "Review"}
-    count_dict = {}
+@app_views.route('/stats')
+def count():
+    """ returns number of each objects by type """
+    total = {}
+    classes = {"Amenity": "amenities",
+               "City": "cities",
+               "Place": "places",
+               "Review": "reviews",
+               "State": "states",
+               "User": "users"}
     for cls in classes:
-        count_dict[cls] = storage.count(classes[cls])
-    return jsonify(count_dict)
+        count = storage.count(cls)
+        total[classes.get(cls)] = count
+    return jsonify(total)
