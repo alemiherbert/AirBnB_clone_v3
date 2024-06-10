@@ -7,12 +7,6 @@ This module contains the routes for the index of the API.
 from api.v1.views import app_views
 from flask import jsonify
 from models import storage
-from models.user import User
-from models.place import Place
-from models.state import State
-from models.city import City
-from models.amenity import Amenity
-from models.review import Review
 
 
 classes = {"users": "User", "places": "Place", "states": "State",
@@ -28,7 +22,7 @@ def status():
     Returns:
         A dictionary containing the status of the API.
     """
-    return {"status": "OK"}
+    return jsonify({"status": "OK"})
 
 
 @app_views.route("/stats", methods=["GET"], strict_slashes=False)
